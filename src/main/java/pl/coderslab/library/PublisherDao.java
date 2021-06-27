@@ -35,4 +35,6 @@ public class PublisherDao {
                 .createQuery("select p from Publisher p")
                 .getResultList();
     }
+
+
 }
