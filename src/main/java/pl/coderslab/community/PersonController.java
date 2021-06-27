@@ -1,9 +1,8 @@
 package pl.coderslab.community;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.library.Book;
 
 @Controller
@@ -18,26 +17,55 @@ public class PersonController {
         this.personDetailsDao = personDetailsDao;
     }
 
-    @RequestMapping("/add")
-    @ResponseBody
-    public String add(){
-        Person person = new Person();
-        person.setEmail("jakisemail@fajny.pl");
-        person.setLogin("uzytkownik");
-        person.setPassword("haslo");
+//    @RequestMapping("/add")
+//    @ResponseBody
+//    public String add(){
+//        Person person = new Person();
+//        person.setEmail("jakisemail@fajny.pl");
+//        person.setLogin("uzytkownik");
+//        person.setPassword("haslo");
+//
+//        PersonDetails personDetails = new PersonDetails();
+//        personDetails.setFirstName("Czesiek");
+//        personDetails.setLastName("Kurzajka");
+//        personDetails.setStreet("Jakastam");
+//        personDetails.setStreetNumber(10);
+//        personDetails.setCity("Czesionkowo");
+//        personDetailsDao.save(personDetails);
+//
+//        person.setPersonDetails(personDetails);
+//        personDao.save(person);
+//
+//        return "zapisano osobę: "+person;
+//    }
 
-        PersonDetails personDetails = new PersonDetails();
-        personDetails.setFirstName("Czesiek");
-        personDetails.setLastName("Kurzajka");
-        personDetails.setStreet("Jakastam");
-        personDetails.setStreetNumber(10);
-        personDetails.setCity("Czesionkowo");
-        personDetailsDao.save(personDetails);
+    @GetMapping("/add")
+    public String addPerson(Model model){
+        model.addAttribute("person", new Person());
+        return "person/add";
+    }
+//    Zadanie 1
+//    @PostMapping("/add")
+//    public String savePerson(
+//            @RequestParam String login,
+//            @RequestParam String password,
+//            @RequestParam String email
+//    ){
+//        Person person = new Person();
+//        person.setLogin(login);
+//        person.setPassword(password);
+//        person.setEmail(email);
+//        personDao.save(person);
+//        return "redirect:/person/add";
+//    }
 
-        person.setPersonDetails(personDetails);
+    // Zadanie 2
+    @PostMapping("/add")
+    public String savePerson(
+            Person person
+    ){
         personDao.save(person);
-
-        return "zapisano osobę: "+person;
+        return "redirect:/person/add";
     }
 
     @RequestMapping("/get/{id}")

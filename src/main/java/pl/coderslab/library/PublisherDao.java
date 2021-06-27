@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -27,5 +28,11 @@ public class PublisherDao {
     public void delete(Long id){
         Publisher byID = this.findByID(id);
         entityManager.remove(entityManager.contains(byID) ? byID : entityManager.merge(byID));
+    }
+
+    public List<Publisher> findAll(){
+        return entityManager
+                .createQuery("select p from Publisher p")
+                .getResultList();
     }
 }

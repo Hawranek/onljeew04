@@ -77,4 +77,18 @@ public class BookController {
         bookDao.delete(id);
         return "Usunięta książka: " + info;
     }
+
+    @RequestMapping("/byauthor")
+    @ResponseBody
+    public String findByAuthor(){
+        Author author=authorDao.findByID(2l);
+        return bookDao.findAllByAuthor(author).toString();
+    }
+
+    @RequestMapping("/bypublisher")
+    @ResponseBody
+    public String findByPublisher(){
+        Publisher byID = publisherDao.findByID(2l);
+        return bookDao.findAllWithExactPublisher(byID).toString();
+    }
 }
