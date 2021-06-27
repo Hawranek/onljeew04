@@ -1,7 +1,6 @@
 package pl.coderslab.community;
 
 import org.springframework.stereotype.Repository;
-import pl.coderslab.library.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
