@@ -24,16 +24,16 @@
     <th>description</th>
     <th>action</th>
   </tr>
-  <c:forEach items="${books}" var="book">
+  <c:forEach items="${books}" var="author">
     <tr>
-      <td>${book.id}</td>
-      <td>${book.title}</td>
-      <td>${book.publisher.name}</td>
-      <td>${book.rating}</td>
-      <td>${book.description}</td>
+      <td>${author.id}</td>
+      <td>${author.title}</td>
+      <td>${author.publisher.name}</td>
+      <td>${author.rating}</td>
+      <td>${author.description}</td>
       <td>
-        <a href='<c:url value="/book-form/del/${book.id}"/>'>Usuń</a>
-        <a href='<c:url value="/book-form/edit?id=${book.id}"/>'>edytuj</a>
+        <a href='<c:url value="/book-form/del/${author.id}"/>'>Usuń</a>
+        <a href='<c:url value="/book-form/edit?id=${author.id}"/>'>edytuj</a>
 
       </td>
     </tr>

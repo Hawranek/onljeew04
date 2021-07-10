@@ -10,10 +10,12 @@ public class BookFormController {
 
     private final BookDao bookDao;
     private final PublisherDao publisherDao;
+    private final AuthorDao authorDao;
 
-    public BookFormController(BookDao bookDao, PublisherDao publisherDao) {
+    public BookFormController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
+        this.authorDao = authorDao;
     }
 
     @RequestMapping("/all")
@@ -25,6 +27,7 @@ public class BookFormController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("publishers", publisherDao.findAll());
+        model.addAttribute("authors",authorDao.findAll());
         model.addAttribute("book", new Book());
         return "books/add";
     }
@@ -49,7 +52,13 @@ public class BookFormController {
     }
 
     @GetMapping("/del/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, Model model) {
+        model.addAttribute("book",bookDao.findByID(id));
+        return "books/delete";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteJsp(@PathVariable Long id){
         bookDao.delete(id);
         return "redirect:/book-form/all";
     }

@@ -1,9 +1,8 @@
 package pl.coderslab.library;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/authors")
@@ -14,24 +13,34 @@ public class AuthorController {
         this.authorDao = authorDao;
     }
 
-    @RequestMapping("/add")
-    @ResponseBody
-    public String addAuthor() {
-        Author newAuthor = new Author();
-        newAuthor.setFirstName("Adam");
-        newAuthor.setLastName("Mickiewicz");
-        authorDao.save(newAuthor);
-        return "dodano autora:\n" + newAuthor.toString();
+    @RequestMapping("/all")
+    public String all(Model model){
+        model.addAttribute("authors",authorDao.findAll());
+        return "authors/all";
     }
 
-    @RequestMapping("/update/{id}")
-    @ResponseBody
-    public String updateAuthor(@PathVariable long id){
-        Author byID = authorDao.findByID(id);
-        byID.setFirstName("Jan");
-        byID.setLastName("Kochanowski");
-        authorDao.update(byID);
-        return "Zaktualizowan autor:\n"+byID.toString();
+    @GetMapping("/add")
+    public String add(Model model){
+        model.addAttribute("author",new Author());
+        return "authors/add";
+    }
+
+    @PostMapping("/add")
+    public String addAuthor(Author author) {
+        authorDao.save(author);
+        return "redirect:/authors/all";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String update(@PathVariable long id, Model model){
+        model.addAttribute("author",authorDao.findByID(id));
+        return "authors/edit";
+    }
+
+    @PostMapping("/edit")
+    public String saveUpdate(Author author){
+        authorDao.update(author);
+        return "redirect:/authors/all";
     }
 
     @RequestMapping("/get/{id}")
@@ -40,11 +49,16 @@ public class AuthorController {
         return "Pobrany autor:\n"+ authorDao.findByID(id);
     }
 
-    @RequestMapping("/delete/{id}")
-    @ResponseBody
+    @GetMapping("/del/{id}")
+    public String delete(@PathVariable Long id, Model model){
+        model.addAttribute("author",authorDao.findByID(id));
+        return "authors/delete";
+    }
+    //coś nie działa
+
+    @GetMapping("/delete/{id}")
     public String deleteAuthor(@PathVariable Long id){
-        String info= authorDao.findByID(id).toString();
         authorDao.delete(id);
-        return "Usunięty autor: "+info;
+        return "redirect:/authors/all";
     }
 }
