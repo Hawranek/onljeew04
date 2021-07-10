@@ -11,6 +11,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -78,13 +80,6 @@ public class AppConfig implements WebMvcConfigurer {
         registry.addConverter(getAuthorConverter());
     }
 
-    @Bean(name = "localeResolver")
-    public LocaleContextResolver getLocaleContextResolver() {
-        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("pl", "PL"));
-        return localeResolver;
-    }
-
     @Bean
     public PublisherConverter getPublisherConverter() {
         return new PublisherConverter();
@@ -95,4 +90,15 @@ public class AppConfig implements WebMvcConfigurer {
         return new AuthorConverter();
     }
 
+    @Bean(name = "localeResolver")
+    public LocaleContextResolver getLocaleContextResolver() {
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(new Locale("pl", "PL"));
+        return localeResolver;
+    }
+
+    @Bean
+    public Validator validator() {
+        return new LocalValidatorFactoryBean();
+    }
 }
