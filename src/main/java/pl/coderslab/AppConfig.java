@@ -11,7 +11,6 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -24,6 +23,7 @@ import pl.coderslab.library.AuthorConverter;
 import pl.coderslab.library.PublisherConverter;
 
 import javax.persistence.EntityManagerFactory;
+import javax.validation.Validator;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
