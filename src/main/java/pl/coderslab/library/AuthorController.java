@@ -2,7 +2,10 @@ package pl.coderslab.library;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/authors")
@@ -26,7 +29,10 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public String addAuthor(Author author) {
+    public String addAuthor(@Valid Author author, BindingResult result) {
+        if(result.hasErrors()){
+            return "authors/add";
+        }
         authorDao.save(author);
         return "redirect:/authors/all";
     }
@@ -38,7 +44,10 @@ public class AuthorController {
     }
 
     @PostMapping("/edit")
-    public String saveUpdate(Author author){
+    public String saveUpdate(@Valid Author author, BindingResult result){
+        if (result.hasErrors()){
+            return "authors/edit";
+        }
         authorDao.update(author);
         return "redirect:/authors/all";
     }

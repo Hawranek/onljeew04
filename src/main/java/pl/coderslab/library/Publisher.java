@@ -18,9 +18,25 @@ public class Publisher {
     private String name;
 
     @NIP
-    private Integer nip;
-    @REGON
-    private Integer regon;
+    private String nip;
+//    @REGON
+    private String regon;
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getRegon() {
+        return regon;
+    }
+
+    public void setRegon(String regon) {
+        this.regon = regon;
+    }
 
     @Override
     public String toString() {

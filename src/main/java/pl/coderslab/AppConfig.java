@@ -4,6 +4,7 @@ package pl.coderslab;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -25,6 +26,7 @@ import pl.coderslab.library.PublisherConverter;
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +35,7 @@ import java.util.Locale;
 @EnableWebMvc
 @ComponentScan(basePackages = "pl.coderslab")
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "pl.coderslab.repository")
 public class AppConfig implements WebMvcConfigurer {
 
     @Override
@@ -41,6 +44,13 @@ public class AppConfig implements WebMvcConfigurer {
         stringConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "html",
                 Charset.forName("UTF-8"))));
         converters.add(stringConverter);
+    }
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.stream()
+                .filter(c -> c instanceof StringHttpMessageConverter)
+                .forEach(c -> ((StringHttpMessageConverter) c).setDefaultCharset(StandardCharsets.UTF_8));
     }
 
     @Bean

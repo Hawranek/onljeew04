@@ -23,7 +23,7 @@ public class Author {
     private String lastName;
 
     @PESEL
-    private Integer pesel;
+    private String pesel;
     @Email
     private String email;
 

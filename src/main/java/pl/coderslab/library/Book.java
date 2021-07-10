@@ -30,6 +30,7 @@ public class Book {
 
     @NotNull
     @ManyToOne
+    @JoinColumn (name = "publisher_id")
     private Publisher publisher;
 
     @NotEmpty
@@ -39,6 +40,25 @@ public class Book {
     @Min(2)
     private int pages;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public List<Author> getAuthors() {
         return authors;

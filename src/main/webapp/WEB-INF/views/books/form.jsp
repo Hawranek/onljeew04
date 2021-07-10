@@ -9,24 +9,41 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<head>
+    <title>Title</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
 <body>
 
 <form:form modelAttribute="book" method="post">
+    <form:hidden path="id"/>
     <tr>
         Tytuł:
         <form:input path="title"/>
+        <form:errors path="title" cssClass="error"/>
+        <br/>
     </tr>
     <tr>
         Rating:
         <form:input path="rating"/>
+        <form:errors path="rating" cssClass="error"/>
+        <br/>
     </tr>
     <tr>
         Wydawca:
         <form:select path="publisher" items="${publishers}" itemLabel="name" itemValue="id"/>
+        <form:errors path="publisher" cssClass="error"/>
+        <br/>
     </tr>
     <tr>
         Autorzy:
         <form:select path="authors" items="${authors}" itemLabel="lastName" itemValue="id"/>
+        <form:errors path="authors" cssClass="error"/>
+        <br/>
     </tr>
     <input type="submit">
 </form:form>
@@ -36,7 +53,4 @@
 
 </ul>
 </body>
-<head>
-    <title>Title</title>
-</head>
 </html>

@@ -11,6 +11,11 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <form:form modelAttribute="author" method="post">
@@ -18,8 +23,15 @@
         <th>firstName</th>
         <th>lastName</th>
         <tr>
-            <td><form:input path="firstName"/></td>
-            <td><form:input path="lastName"/></td>
+            <td>
+                <form:input path="firstName"/>
+                <form:errors path="firstName" cssClass="error"/>
+            </td>
+
+            <td>
+                <form:input path="lastName"/>
+                <form:errors path="lastName" cssClass="error"/>
+            </td>
         </tr>
     </table>
     <input type="submit">
