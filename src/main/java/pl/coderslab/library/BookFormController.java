@@ -117,16 +117,31 @@ public class BookFormController {
         List<Book> byAuthor = bookRepository.findByAuthors(author);
         log.info("By Author: {}", byAuthor);
 
-        Publisher publisher = publisherRepository.findById(1L).orElse(null);
+        Publisher publisher = publisherRepository.findById(11L).orElse(null);
         List<Book> byPublisher = bookRepository.findByPublisher(publisher);
         log.info("By Publisher: {}", byPublisher);
 
         int rating = 10;
         List<Book> byRating = bookRepository.findByRating(rating);
-        log.info("By Rating: {}",byRating);
+        log.info("By Rating: {}", byRating);
 
         Book firstByCategoryOrderByTitle = bookRepository.findFirstByCategoryOrderByTitle(category);
-        log.info("First of Category order by title: {}",firstByCategoryOrderByTitle);
+        log.info("First of Category order by title: {}", firstByCategoryOrderByTitle);
+
+        List<Book> booksByRatingBetween = bookRepository.findBooksByRatingBetween(1, 8);
+        log.info("Books by rating between: {}", booksByRatingBetween);
+
+        List<Book> booksByPublisher = bookRepository.findBooksByPublisher(publisher);
+        log.info("Books by Publisher: {}", booksByPublisher);
+
+        List<Book> firstBookByCategoryOrOrderByTitle = bookRepository.findFirstBookByCategoryOrOrderByTitle(category);
+        log.info("First book of category sorted by title: {}", firstBookByCategoryOrOrderByTitle);
+
+        List<Author> authorsByEmailStartsWith = authorRepository.findAuthorsByEmailStartsWith("a");
+        log.info("Author with email starting with letter: {}", authorsByEmailStartsWith);
+
+        List<Author> authorsByPeselStartingWith = authorRepository.findAuthorsByPeselStartingWith("86");
+        log.info("Author with PESEL starting with: {}",authorsByPeselStartingWith);
 
         return "";
     }
