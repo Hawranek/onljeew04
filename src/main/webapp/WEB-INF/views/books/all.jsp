@@ -33,7 +33,7 @@
       <td>${author.description}</td>
       <td>
         <a href='<c:url value="/book-form/del/${author.id}"/>'>Usuń</a>
-        <a href='<c:url value="/book-form/edit?id=${author.id}"/>'>edytuj</a>
+        <a href='<c:url value="/book-form/form/${author.id}"/>'>edytuj</a>
 
       </td>
     </tr>

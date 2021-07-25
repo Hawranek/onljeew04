@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<form:form modelAttribute="book" method="post">
+<form:form modelAttribute="book" action="/book-form/form">
     <form:hidden path="id"/>
     <tr>
         Tytuł:
